@@ -1,0 +1,33 @@
+version: "1.0"
+service: "unnamed-service"
+telemetry_standard: "opentelemetry"
+maturity_level: "baseline" # baseline | intermediate | advanced
+
+guardrails:
+  forbidden_metric_labels:
+    - "user_id"
+    - "email"
+    - "account_id"
+    - "order_id"
+    - "transaction_id"
+  fail_silent: true
+  async_export: true
+  event_driven_propagation: true
+
+pillars:
+  traces:
+    required_in_scopes: true
+    sampling_ratio: 1.0
+    propagation: "w3c"
+    mandatory_attributes:
+      - "app.environment"
+  metrics:
+    framework_defaults: true
+    custom_metrics_limit_per_scope: 2
+    required_types:
+      - "counter"
+      - "histogram"
+  logs:
+    structured: true
+    inject_trace_id: true
+    min_level: "info"
