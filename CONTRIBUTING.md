@@ -29,4 +29,4 @@ The tests check package and documentation contracts. They do not execute an AI a
 
 ## Licensing
 
-No license has been selected for this repository. Confirm the repository owner's choice before adding a license file or publishing a public distribution.
+This repository is available under the [MIT License](LICENSE). You are free to fork it, create your own version, and distribute or publish that version under the license terms. Preserve the copyright and permission notice in copies or substantial portions of the software.

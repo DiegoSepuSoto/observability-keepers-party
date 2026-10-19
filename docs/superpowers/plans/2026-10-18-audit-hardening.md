@@ -15,7 +15,7 @@
 - Keep all skill and documentation text in English.
 - Do not change baseline template parsed values except extending `forbidden_metric_labels` (R-2). Do not change `sampling_ratio` or `mandatory_attributes` (owner decision, R-7).
 - Preserve each skill's output length and action limits.
-- Do not add a CLI, runtime, license file, or new Python dependency.
+- Do not add a CLI, runtime, or new Python dependency. The owner later selected MIT; add its license file and document reuse terms.
 - Do not create commits as part of implementation unless asked.
 - Run `.venv/bin/python -m pytest -q` after every task; the suite must stay green at the end of each task.
 
@@ -135,7 +135,7 @@ Run: `.venv/bin/python -m pytest -q`
 2. Pin upper bounds in `requirements-dev.txt` after confirming the installed versions pass.
 3. `CHANGELOG.md`: Keep a Changelog format with an `Unreleased` entry summarizing this work.
 4. Installation guide: for each host, look up the current user-level skill directory in its official documentation; add it with a link, or keep the "consult its documentation" wording where it cannot be verified.
-5. Do not add a license.
+5. Add the MIT `LICENSE` file and document that forks and independent versions may be published or redistributed under its terms.
 
 Run: `.venv/bin/python -m pytest -q`; validate the workflow YAML parses with PyYAML.
 
@@ -144,7 +144,7 @@ Run: `.venv/bin/python -m pytest -q`; validate the workflow YAML parses with PyY
 1. Run the full suite and report the pass count.
 2. Walk the acceptance criteria 1–11 in the design and mark each with the evidence (test name or file).
 3. Confirm unchanged limits per skill: `obs-init` one status line; `obs-guide` one or two actions; `obs-audit` two findings and two tasks; `obs-impact` three to five lines; `obs-score` two actions.
-4. List the three open owner decisions in the final report as untouched.
+4. List the two remaining owner decisions in the final report as untouched and record MIT as selected.
 
 ## Suggested order and parallelism
 

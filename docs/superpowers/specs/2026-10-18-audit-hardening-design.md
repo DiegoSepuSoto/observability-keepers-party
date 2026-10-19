@@ -105,7 +105,7 @@ Each requirement has an identifier (`R-n`) that the implementation plan and acce
 - Add `CHANGELOG.md` using Keep a Changelog headings, starting with an `Unreleased` section that records this work.
 - Document user-level skill directories for each host in `docs/installation.md` using the host's currently documented paths; verify each against the host's documentation before writing and cite it. If a path cannot be verified, keep the existing "consult its documentation" wording for that host.
 - In `obs-impact`, remove the duplicated action-limit sentence and state that any prioritized actions are part of the three-to-five-line summary.
-- Licensing remains an explicit owner decision; do not add a license file.
+- The owner selected the MIT License on 2026-10-18. Add `LICENSE` and state in README and CONTRIBUTING that forks and independent versions may be published or redistributed under its terms.
 
 ## Fixtures and behavior checks (supports R-1)
 
@@ -126,7 +126,7 @@ Because the product is instructions to a model, add fixtures that let humans and
 - No CLI, daemon, shared runtime, or host-specific wrapper.
 - No automatic edits to application source by any skill.
 - No change to the baseline template's parsed values beyond the label-list extension in R-2, unless the owner approves R-7.
-- No license file and no decision on distributing the theme separately.
+- No decision on distributing the theme separately.
 - No model-execution tests in CI.
 
 ## Acceptance criteria
@@ -155,4 +155,4 @@ Because the product is instructions to a model, add fixtures that let humans and
 
 1. Change `sampling_ratio` default and add `service.name` and `service.version` to `mandatory_attributes` (R-7).
 2. Keep the theme in the default install or split it into an optional package (R-8).
-3. Select a license (R-10).
+The license decision is resolved: MIT was selected on 2026-10-18 and added in `LICENSE`.

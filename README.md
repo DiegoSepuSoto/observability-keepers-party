@@ -24,6 +24,10 @@ Copy or link any complete skill directory under the target tool's native skill p
 
 The skills support SDD artifacts without requiring a specific SDD framework. See [the SDD conventions](docs/sdd-conventions.md) for the expected feature-spec and audit-task formats.
 
+## Forking and creating your own version
+
+Everyone is free to fork this repository, modify the skills, create an independent version, and publish or redistribute it under the [MIT License](LICENSE). Keep the copyright and permission notice with copies or substantial portions of the software, as the license requires.
+
 ## Development
 
 The automated checks validate skill metadata, the baseline YAML contract, required instruction contracts, and installation documentation. They do not run an AI model or prove application runtime coverage.
@@ -34,4 +38,4 @@ python3 -m venv .venv
 .venv/bin/python -m pytest -q
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) before changing a skill. The repository license has not been selected; choose one before public distribution.
+See [CONTRIBUTING.md](CONTRIBUTING.md) before changing a skill.
