@@ -1,0 +1,7 @@
+version: "1.0"
+service: "ledger-api"
+guardrails:
+  forbidden_metric_labels: ["tenant_code"]
+  fail_silent: true
+  async_export: true
+  event_driven_propagation: true

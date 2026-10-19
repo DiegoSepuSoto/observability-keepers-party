@@ -60,6 +60,9 @@ guardrails:
     - "account_id"
     - "order_id"
     - "transaction_id"
+    - "session_id"
+    - "request_id"
+    - "ip_address"
   fail_silent: true
   async_export: true
   event_driven_propagation: true

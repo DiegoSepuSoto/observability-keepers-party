@@ -2,6 +2,8 @@
 
 The canonical packages live under `skills/`. These folders are not auto-discovered from that source path; copy or link the complete folder into the host's native skill directory. Keep `SKILL.md` and any `references/` files together. You can install one skill or all five.
 
+The skills do not require a specific SDD framework. See [the SDD conventions](sdd-conventions.md) for feature-spec and audit-task formats.
+
 ## OpenCode
 
 For a project-local install, use `.opencode/skills/<skill-name>/SKILL.md`:
@@ -26,6 +28,8 @@ opencode run "Use the obs-init skill to initialize observability in this reposit
 
 This is an agent prompt, not a universal `opencode run <skill-name>` command alias.
 
+For user-level installation paths, consult [OpenCode's current skills documentation](https://opencode.ai/docs/skills/).
+
 ## Claude Code
 
 For a project-local install, use `.claude/skills/<skill-name>/SKILL.md`:
@@ -36,6 +40,8 @@ cp -R skills/obs-init/. .claude/skills/obs-init/
 ```
 
 Replace `obs-init` to install another skill. In a Claude Code session, invoke a skill by its slash name, for example `/obs-init`. Claude Code also supports user-level skills; consult its current documentation for the user directory if you want the skills available across projects.
+
+See [Claude Code's skills documentation](https://docs.anthropic.com/en/docs/claude-code/skills) for current user-level installation details.
 
 ## Codex
 

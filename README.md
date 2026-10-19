@@ -16,11 +16,13 @@ Each skill keeps instructions specific to its task. `obs-guide` and `obs-audit` 
 
 ## Response style
 
-All skill responses remain in English. Enterprise style is the default. Include the exact phrase `fantasy naming` in a skill request to opt into the Adventuring Party voice; the selected skill then adds at most one brief character-framed sentence while preserving technical facts and its existing output limits. The roles are Cartographer (`obs-init`, `obs-score`), Sentinel Guard (`obs-guide`), Spectral Inquisitor (`obs-audit`), and Troubadour (`obs-impact`). This is a natural-language convention for portable skills, not a CLI option or shared runtime.
+All skill responses remain in English. Enterprise style is the default. Include `fantasy naming` or `fantasy-naming` in a skill request, in any letter case, to opt into the Adventuring Party voice; paraphrases do not activate it. The selected skill adds at most one brief character-framed sentence while preserving technical facts and its existing output limits. The roles are Cartographer (`obs-init`, `obs-score`), Sentinel Guard (`obs-guide`), Spectral Inquisitor (`obs-audit`), and Troubadour (`obs-impact`). This is a natural-language convention for portable skills, not a CLI option or shared runtime.
 
 ## Installation
 
 Copy or link any complete skill directory under the target tool's native skill path. Keep each folder intact so `obs-init` can read its bundled template. See [the installation guide](docs/installation.md) for platform-specific paths and activation examples.
+
+The skills support SDD artifacts without requiring a specific SDD framework. See [the SDD conventions](docs/sdd-conventions.md) for the expected feature-spec and audit-task formats.
 
 ## Development
 

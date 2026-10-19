@@ -3,6 +3,16 @@ service: "unnamed-service"
 telemetry_standard: "opentelemetry"
 maturity_level: "baseline" # baseline | intermediate | advanced
 
+# Optional SLO example (targets are owned by the service team):
+# slo:
+#   availability_target: 99.9
+#   p95_latency_target_ms: 300
+#   window: 30d
+# Optional critical route templates can be listed as:
+# critical_routes:
+#   - "GET /orders/{order_id}"
+# sampling_ratio: 1.0 suits development; lower it for high-traffic production.
+
 guardrails:
   forbidden_metric_labels:
     - "user_id"
@@ -10,6 +20,9 @@ guardrails:
     - "account_id"
     - "order_id"
     - "transaction_id"
+    - "session_id"
+    - "request_id"
+    - "ip_address"
   fail_silent: true
   async_export: true
   event_driven_propagation: true

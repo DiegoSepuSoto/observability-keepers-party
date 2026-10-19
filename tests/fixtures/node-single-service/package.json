@@ -1,0 +1,7 @@
+{
+  "name": "shop-api",
+  "private": true,
+  "dependencies": {
+    "express": "^4.0.0"
+  }
+}
