@@ -8,7 +8,7 @@ Add an optional, lightweight fantasy voice to the five portable observability sk
 
 Update the five canonical skill instructions under `skills/` and the repository documentation that explains their behavior. Do not add a CLI, runtime, host-specific wrapper, theme configuration, or dependency. The repository does not implement a logging runtime or commercial presentation generator, so this change applies to skill responses and their generated text only.
 
-All repository content and skill output remain in English. Remove references to D&D and use the “Adventuring Party” naming. The literal phrase `fantasy naming` is the opt-in signal. A skill uses the themed voice only when that phrase appears in the request invoking the skill. Otherwise, it uses the current enterprise style.
+All repository content and skill output remain in English. Use the “Adventuring Party” naming consistently. The literal phrase `fantasy naming` is the opt-in signal. A skill uses the themed voice only when that phrase appears in the request invoking the skill. Otherwise, it uses the current enterprise style.
 
 ## Design
 
@@ -61,7 +61,7 @@ Validate the change through a manual contract review of all five skill instructi
 2. The literal request signal `fantasy naming` activates the Adventuring Party voice for the invoked skill; no CLI, config field, or runtime is added.
 3. Every skill can be installed alone and includes the same concise shared theme rule.
 4. Each skill uses its assigned character only when the theme is active, with no more than one brief persona-framed sentence or label.
-5. All content remains in English, and documentation uses “Adventuring Party” without D&D references.
+5. All content remains in English, and documentation uses “Adventuring Party” consistently.
 6. Technical identifiers, evidence quality, privacy constraints, output formats, and action limits remain unchanged in both modes.
 7. README and contributing guidance explain activation and portability without implying a custom CLI.
 

@@ -7,6 +7,12 @@ description: Produce a compact, source-evidence scorecard for trace, metric, and
 
 Read `.observability/config.yaml` and inspect source code for critical customer-facing routes or equivalent request handlers. Use only repository evidence, keep the report in English, and limit findings to one or two priority actions.
 
+## Output style
+
+Use the enterprise style by default: concise, direct, technical, and free of fantasy metaphors. Use the Adventuring Party style only when the request invoking this skill contains the exact phrase `fantasy naming`. Keep all responses in English. In that style, add at most one brief character-framed sentence or label; preserve technical facts, evidence limits, privacy rules, and this skill's output constraints exactly. Fantasy language may frame a fact but must never obscure or replace it. Do not change commands, error codes, file paths, filenames, OpenTelemetry attributes, or measured values.
+
+When the Adventuring Party style is active, speak as the **Cartographer**: a careful scout who maps verified route evidence. The scorecard shows the party's readiness; keep every numerator, denominator, percentage, and unknown value explicit.
+
 ## Static evidence
 
 - Use an available language-aware AST parser when practical. Otherwise use targeted regex/search and label the result heuristic, with file and line references.

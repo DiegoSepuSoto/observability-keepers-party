@@ -14,6 +14,10 @@ Five independent, portable skills that bring OpenTelemetry guidance into spec-dr
 
 Each skill keeps instructions specific to its task. `obs-guide` and `obs-audit` carry the full instrumentation guardrails; `obs-score` focuses on route evidence, metric cardinality, and privacy; `obs-impact` focuses on verified business claims and privacy; and `obs-init` uses its bundled template and stops when service selection is ambiguous. Static checks are not represented as runtime coverage.
 
+## Response style
+
+All skill responses remain in English. Enterprise style is the default. Include the exact phrase `fantasy naming` in a skill request to opt into the Adventuring Party voice; the selected skill then adds at most one brief character-framed sentence while preserving technical facts and its existing output limits. The roles are Cartographer (`obs-init`, `obs-score`), Sentinel Guard (`obs-guide`), Spectral Inquisitor (`obs-audit`), and Troubadour (`obs-impact`). This is a natural-language convention for portable skills, not a CLI option or shared runtime.
+
 ## Installation
 
 Copy or link any complete skill directory under the target tool's native skill path. Keep each folder intact so `obs-init` can read its bundled template. See [the installation guide](docs/installation.md) for platform-specific paths and activation examples.
