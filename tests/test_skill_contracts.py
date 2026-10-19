@@ -90,6 +90,25 @@ def test_obs_init_treats_unknown_stack_as_unknown() -> None:
     assert "do not guess" in content or "never guess" in content
 
 
+def test_obs_init_stops_on_ambiguous_service_candidates() -> None:
+    content = read_skill("obs-init").lower()
+
+    assert "multiple independent services" in content
+    assert "manifest paths" in content
+    assert "stop before creating" in content
+    assert "selected service root" in content
+
+
+def test_obs_init_uses_template_for_defaults_without_source_audit_steps() -> None:
+    content = read_skill("obs-init").lower()
+
+    assert "references/observability-config.yaml" in content
+    assert "template" in content and "authoritative" in content
+    assert "one concise english line" in content
+    assert "ast" not in content
+    assert "regex" not in content
+
+
 def test_obs_guide_limits_scope_and_priorities() -> None:
     content = read_skill("obs-guide").lower()
 
@@ -109,6 +128,16 @@ def test_obs_guide_applies_cardinality_and_sanitization_rules() -> None:
     assert "transaction_id" in content
     assert "metric label" in content
     assert "sanitized" in content
+
+
+def test_obs_guide_keeps_instrumentation_guardrails() -> None:
+    content = read_skill("obs-guide").lower()
+
+    assert "batchspanprocessor" in content
+    assert "fail-silent" in content
+    assert "non-blocking" in content
+    assert "traceparent" in content and "w3c" in content
+    assert "raw request bodies" in content
 
 
 def test_obs_guide_requires_ast_first_and_qualifies_static_evidence() -> None:
@@ -191,16 +220,14 @@ def test_obs_impact_requires_matching_user_evidence_for_user_percentages() -> No
     assert "mark user impact unavailable" in content
 
 
-def test_impact_and_score_protect_sensitive_telemetry_data() -> None:
-    for name in ("obs-impact", "obs-score"):
-        content = read_skill(name).lower()
+def test_obs_impact_protects_summary_privacy_without_instrumentation_steps() -> None:
+    content = read_skill("obs-impact").lower()
 
-        assert "dynamic identifiers" in content, name
-        assert "spans or logs only when necessary and sanitized" in content, name
-        assert (
-            "never collect or seed secrets, credentials, raw request bodies, "
-            "or unnecessary personal data"
-        ) in content, name
+    assert "do not list raw telemetry fields" in content
+    assert "secrets, credentials, raw request bodies, or unnecessary personal data" in content
+    assert "batchspanprocessor" not in content
+    assert "traceparent" not in content
+    assert "metric label" not in content
 
 
 def test_obs_score_uses_per_pillar_route_evidence() -> None:
@@ -211,6 +238,17 @@ def test_obs_score_uses_per_pillar_route_evidence() -> None:
     assert "counter" in content and "histogram" in content
     assert "structured log" in content and "trace context" in content
     assert "percentage" in content or "%" in content
+
+
+def test_obs_score_keeps_metric_cardinality_and_output_privacy() -> None:
+    content = read_skill("obs-score").lower()
+
+    assert "low-cardinality" in content
+    assert "dynamic identifiers" in content
+    assert "keep dynamic identifiers out of the scorecard" in content
+    assert "raw request bodies" in content
+    assert "batchspanprocessor" not in content
+    assert "traceparent" not in content
 
 
 def test_obs_score_reports_unknown_without_routes() -> None:
@@ -247,6 +285,16 @@ def test_documentation_does_not_promise_universal_invocation() -> None:
         assert name in content
 
 
+def test_repository_docs_describe_role_specific_guardrails() -> None:
+    readme = (ROOT / "README.md").read_text(encoding="utf-8").lower()
+    contributing = (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8").lower()
+
+    assert "same guardrails" not in readme
+    assert "obs-guide" in readme and "obs-impact" in readme
+    assert "guardrails specific to its responsibility" in contributing
+    assert "obs-audit" in contributing and "obs-score" in contributing
+
+
 def test_all_skills_have_matching_portable_frontmatter() -> None:
     for name in ("obs-init", "obs-guide", "obs-audit", "obs-impact", "obs-score"):
         metadata = read_frontmatter(name)
@@ -255,9 +303,9 @@ def test_all_skills_have_matching_portable_frontmatter() -> None:
         assert isinstance(metadata["description"], str) and metadata["description"].strip()
 
 
-def test_skills_forbid_dynamic_metric_labels() -> None:
+def test_instrumentation_skills_keep_shared_telemetry_guardrails() -> None:
     identifiers = ("user_id", "email", "account_id", "order_id", "transaction_id")
-    for name in ("obs-init", "obs-guide", "obs-audit", "obs-impact", "obs-score"):
+    for name in ("obs-guide", "obs-audit"):
         content = read_skill(name).lower()
 
         assert all(identifier in content for identifier in identifiers), name
@@ -268,7 +316,4 @@ def test_skills_forbid_dynamic_metric_labels() -> None:
         assert "traceparent" in content and "w3c" in content, name
         assert "ast" in content and "regex" in content, name
         assert "source" in content, name
-        if name == "obs-init":
-            assert "one concise status line" in content
-        else:
-            assert "one or two" in content, name
+        assert "one or two" in content, name

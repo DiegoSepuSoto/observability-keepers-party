@@ -12,7 +12,7 @@ Five independent, portable skills that bring OpenTelemetry guidance into spec-dr
 | `obs-impact` | Explain verified telemetry and SLO/SLI evidence in a three-to-five-line customer-impact summary. |
 | `obs-score` | Show static logs, metrics, and traces coverage for detected critical routes. |
 
-Every skill limits its output to one or two priority actions and applies the same guardrails: low-cardinality metric labels, asynchronous fail-silent export, W3C context propagation for event-driven work, and source-based verification. Static checks are not represented as runtime coverage.
+Each skill keeps instructions specific to its task. `obs-guide` and `obs-audit` carry the full instrumentation guardrails; `obs-score` focuses on route evidence, metric cardinality, and privacy; `obs-impact` focuses on verified business claims and privacy; and `obs-init` uses its bundled template and stops when service selection is ambiguous. Static checks are not represented as runtime coverage.
 
 ## Installation
 

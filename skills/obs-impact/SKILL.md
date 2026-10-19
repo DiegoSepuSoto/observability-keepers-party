@@ -15,13 +15,9 @@ Before stating a percentage of users impacted, require evidence for both distinc
 
 If the config, SLO/SLI target, traffic data, or incident evidence is missing, state that the corresponding estimate is **unavailable**. Do not invent targets, error rates, latency values, MTTD, MTTR, or affected-user percentages. If `.observability/config.yaml` itself is missing, report `obs-init` as the single prerequisite.
 
-Keep the language direct and business-focused. Do not list raw telemetry fields or produce a technical backlog.
+Keep the language direct and business-focused. Do not list raw telemetry fields or produce a technical backlog. Include no more than one or two prioritized actions.
 
-## Telemetry guardrails
+## Evidence and privacy
 
-- Never use `user_id`, `email`, `account_id`, `order_id`, or `transaction_id` as metric labels. Keep dynamic identifiers out of metric dimensions; include them in spans or logs only when necessary and sanitized.
-- Never collect or seed secrets, credentials, raw request bodies, or unnecessary personal data.
-- Telemetry export must be asynchronous and non-blocking with fail-silent behavior; use `BatchSpanProcessor` for traces.
-- For Kafka, RabbitMQ, SQS, and other asynchronous boundaries, require W3C trace context propagation through message headers using `traceparent`.
 - Treat coverage as verified only when supported by source evidence. Use AST evidence when available; label regex/search evidence as heuristic. YAML alone is not proof, and static evidence is not runtime coverage.
-- Keep any recommendations to one or two priority actions.
+- Never expose secrets, credentials, raw request bodies, or unnecessary personal data in the summary. Report aggregated evidence rather than raw telemetry fields.

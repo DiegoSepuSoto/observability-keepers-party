@@ -12,8 +12,8 @@ Read `.observability/config.yaml` and inspect source code for critical customer-
 - Use an available language-aware AST parser when practical. Otherwise use targeted regex/search and label the result heuristic, with file and line references.
 - A YAML declaration is not proof that the corresponding instrumentation exists in source.
 - This is a static scorecard, not a runtime coverage measurement. Never claim runtime coverage.
-- Never use `user_id`, `email`, `account_id`, `order_id`, or `transaction_id` as metric labels. Require asynchronous, non-blocking export with fail-silent behavior and `BatchSpanProcessor` for traces. Check for W3C `traceparent` propagation through Kafka, RabbitMQ, SQS, and other asynchronous message headers.
-- Keep dynamic identifiers out of metric dimensions; include them in spans or logs only when necessary and sanitized. Never collect or seed secrets, credentials, raw request bodies, or unnecessary personal data.
+- Count metric coverage only when dimensions are stable and low-cardinality; identifiers such as `user_id`, `email`, `account_id`, `order_id`, or `transaction_id` are not valid metric dimensions. Keep dynamic identifiers out of the scorecard.
+- Never expose secrets, credentials, raw request bodies, or unnecessary personal data in the scorecard.
 
 ## Coverage calculation
 
