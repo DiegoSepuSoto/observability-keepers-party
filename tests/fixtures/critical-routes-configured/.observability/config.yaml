@@ -1,0 +1,4 @@
+version: "1.0"
+service: "payments-api"
+critical_routes:
+  - "POST /payments/{payment_id}"

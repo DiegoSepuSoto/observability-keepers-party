@@ -6,12 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-21
+
 ### Added
-- Config-driven metric-label guardrails, reproducible route scoring, and explicit audit task state.
-- Shared untrusted-content rules, SDD conventions, behavioral fixtures, and package contract checks.
+- Brownfield and monorepo safeguards, evidence-qualified route scoring, and explicit audit task state.
+- Shared repository-content trust boundaries, expanded SDD conventions, and fixtures for privacy, missing evidence, async propagation, and export behavior.
 - GitHub Actions test workflow and bounded development dependencies.
 - MIT license and explicit permission to fork, modify, publish, and redistribute independent versions.
 
 ### Changed
-- Unified service-root behavior and clarified skill style activation and installation guidance.
+- Clarified per-skill evidence scope, privacy limits, runtime limitations, service-root selection, and installation guidance.
 - Added comments for optional SLO and critical-route configuration examples.
