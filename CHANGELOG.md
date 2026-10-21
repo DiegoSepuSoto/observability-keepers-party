@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-10-21
+
 ### Added
 - Brownfield and monorepo safeguards, evidence-qualified route scoring, and explicit audit task state.
 - Shared repository-content trust boundaries, expanded SDD conventions, and fixtures for privacy, missing evidence, async propagation, and export behavior.

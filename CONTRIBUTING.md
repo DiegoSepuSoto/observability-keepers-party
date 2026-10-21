@@ -32,6 +32,12 @@ The tests check package and documentation contracts. They do not execute an AI a
 
 Fixtures document expected skill behavior for representative services and evidence gaps. They are prompt-contract examples, not proof that an agent will behave correctly in every host or that application telemetry works at runtime.
 
+## Versioning and releases
+
+Use Semantic Versioning (`MAJOR.MINOR.PATCH`) for the portable skill package. `VERSION` is the canonical current stable version; keep it synchronized with the matching release heading in `CHANGELOG.md`. Record unreleased work under `## [Unreleased]`. When preparing a release, move those entries under a dated `## [X.Y.Z] - YYYY-MM-DD` heading, add a fresh empty `Unreleased` section above it, update `VERSION`, and review the release notes. Use a `vX.Y.Z` Git tag for a published release and make its version match `VERSION`.
+
+For this package, use a patch bump for fixes and clarifications that preserve the skill interfaces, a minor bump for backward-compatible skill capabilities, and a major bump for incompatible changes to skill names, outputs, or artifact contracts. Do not change the version or create a release tag for ordinary development edits until a release is intended.
+
 ## Licensing
 
 This repository is available under the [MIT License](LICENSE). You are free to fork it, create your own version, and distribute or publish that version under the license terms. Preserve the copyright and permission notice in copies or substantial portions of the software.

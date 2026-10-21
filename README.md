@@ -2,6 +2,8 @@
 
 Five independent, portable skills that bring OpenTelemetry guidance into spec-driven development. Install the skill folders into the native discovery directory for OpenCode, Claude Code, or Codex; no custom CLI or build step is required.
 
+Current release: **1.0.2** ([version record](VERSION), [change history](CHANGELOG.md)).
+
 ## Skills
 
 | Skill | Purpose |
