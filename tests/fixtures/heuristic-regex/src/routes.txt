@@ -1,0 +1,2 @@
+route: GET /search
+counter.add(1, {"http.route": "/search"})

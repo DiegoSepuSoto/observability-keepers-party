@@ -1,6 +1,6 @@
 # Install the Observability Skills
 
-The canonical packages live under `skills/`. These folders are not auto-discovered from that source path; copy or link the complete folder into the host's native skill directory. Keep `SKILL.md` and any `references/` files together. You can install one skill or all five.
+The canonical packages live under `skills/`. Each skill is independent and can be installed on its own. These folders are not auto-discovered from that source path; copy or link the complete folder into the host's native skill directory. Keep `SKILL.md` and any `references/` files together, including `obs-init/references/observability-config.yaml`. You can install one skill or all five.
 
 The skills do not require a specific SDD framework. See [the SDD conventions](sdd-conventions.md) for feature-spec and audit-task formats.
 

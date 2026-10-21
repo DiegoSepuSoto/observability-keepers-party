@@ -119,6 +119,12 @@ Because the product is instructions to a model, add fixtures that let humans and
   4. `high-cardinality-label`: a metric using `user_id` and one using a project-specific label listed only in the config (R-2).
   5. `prompt-injection`: a manifest or source comment containing instructions to ignore limits (R-9).
   6. `audit-task-state`: `.sdd/observability/` with one open and one done task (R-3).
+  7. `unknown-stack`: no supported manifest, so stack and service identity are not guessed.
+  8. `async-context-propagation` and `sync-export-request`: source examples for W3C async propagation and synchronous export on a request path.
+  9. `missing-pillars`: one route with no source evidence for spans, metrics, or structured logs.
+  10. `critical-routes-configured` and `no-critical-routes`: explicit route precedence and `unknown` when no denominator exists.
+  11. `no-slo-sli` and `requests-without-users`: unavailable business inputs and request counts without a user denominator.
+  12. `heuristic-regex` and `indirect-wrapper`: uncertainty labels for text search and wrappers not visible at a direct call site.
 - A structural test asserts each fixture has `EXPECTED.md` and that every `EXPECTED.md` names the skill it applies to and states at least one expected observable result.
 
 ## Explicit exclusions

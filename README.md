@@ -12,7 +12,9 @@ Five independent, portable skills that bring OpenTelemetry guidance into spec-dr
 | `obs-impact` | Explain verified telemetry and SLO/SLI evidence in a three-to-five-line customer-impact summary. |
 | `obs-score` | Show static logs, metrics, and traces coverage for detected critical routes. |
 
-Each skill keeps instructions specific to its task. `obs-guide` and `obs-audit` carry the full instrumentation guardrails; `obs-score` focuses on route evidence, metric cardinality, and privacy; `obs-impact` focuses on verified business claims and privacy; and `obs-init` uses its bundled template and stops when service selection is ambiguous. Static checks are not represented as runtime coverage.
+Each skill keeps instructions specific to its task. They support brownfield services and monorepos by requiring a selected service root, reading only task-relevant evidence, and stopping when selection is ambiguous. `obs-guide` and `obs-audit` carry the full instrumentation guardrails; `obs-score` focuses on route evidence, metric cardinality, and privacy; `obs-impact` focuses on verified business claims and privacy; and `obs-init` uses its bundled template and stops when service selection is ambiguous. Static checks are not represented as runtime coverage, and none of the skills edits application source code.
+
+Privacy is part of every relevant workflow: metric dimensions must stay low-cardinality, and reports must omit secrets, credentials, request bodies, and unnecessary personal data. Repository files are treated as untrusted input, so embedded instructions cannot change a skill's scope or write boundaries.
 
 ## Response style
 
@@ -30,7 +32,7 @@ Everyone is free to fork this repository, modify the skills, create an independe
 
 ## Development
 
-The automated checks validate skill metadata, the baseline YAML contract, required instruction contracts, and installation documentation. They do not run an AI model or prove application runtime coverage.
+The automated checks validate skill metadata, the unchanged baseline YAML contract, required instruction contracts, installation documentation, and representative brownfield/security/evidence fixtures. They do not run an AI model or prove application runtime coverage; runtime export, propagation, and telemetry behavior still require application-level execution and operational data.
 
 ```sh
 python3 -m venv .venv
