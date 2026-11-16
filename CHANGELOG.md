@@ -6,6 +6,24 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-15
+
+### Added
+- `obs-postmortem`: new skill structuring a post-incident review document after an incident is resolved. Anchors every impact claim in verified telemetry, reconstructs the event timeline, classifies root cause evidence quality (confirmed / likely / unknown), and generates action items mapped to observability improvements. Adventuring Party character: Chronicler.
+- `obs-playbook`: new skill generating an operational signal playbook for a planned operational action (scale, rollback, traffic action, data-plane action, configuration change). Documents observable signals to verify before, during, and after the action without prescribing debugging steps. Adventuring Party character: Warden.
+
+## [1.1.0] - 2026-11-15
+
+### Added
+- `obs-investigate`: new skill guiding the core analysis loop for active operational investigation (symptom → verify → dimension search → isolate → loop exit). Distinct from `obs-audit`'s static code auditing; targets incidents and anomalies in running systems. Adventuring Party character: Tracker.
+- `obs-sli`: new skill translating a user-facing behavior description into a testable event-based SLI and a draft `slo:` block for `.observability/config.yaml`. Enforces the symptom-not-cause test before generating output. Adventuring Party character: Oracle.
+- `obs-volume`: new skill assessing metric cardinality risk by classifying dimension stability (stable/variable/dynamic), flagging forbidden-label violations, and recommending a sampling policy (head/tail/target-rate) with trade-off rationale. Adventuring Party character: Alchemist.
+
+### Changed
+- `obs-guide`: added wide-event construction as the preferred primary pattern before individual spans; added the ODD question ("How will I know in production whether this feature is working as intended?") as a required closing item; added post-deploy author review recommendation (30–60 minutes after deploy).
+- `obs-audit`: added guardrail check 6 — SLI quality. When an `slo` block is present, verifies that each SLI uses a user-facing, event-based signal rather than a cause-based resource or queue metric; creates a task when a cause-based SLI is detected.
+- `obs-score`: added cardinality health section classifying metric dimensions as stable, variable, or dynamic; extended the ASCII output tree with a fourth `Cardinality` line showing metrics detected and risk count.
+
 ## [1.0.2] - 2026-10-21
 
 ### Added
