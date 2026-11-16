@@ -1,0 +1,10 @@
+version: "1.0"
+service: "shop-api"
+slo:
+  - name: checkout-availability
+    description: "A buyer completes checkout without a server error."
+    sli_type: availability
+    event: "POST /checkout"
+    success_predicate: "http.status_code < 500"
+    target: 0.995
+    window_days: 30

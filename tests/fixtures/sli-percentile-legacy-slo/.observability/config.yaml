@@ -1,0 +1,6 @@
+version: "1.0"
+service: "shop-api"
+slo:
+  availability_target: 99.9
+  p95_latency_target_ms: 300
+  window: 30d

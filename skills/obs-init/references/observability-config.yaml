@@ -3,11 +3,15 @@ service: "unnamed-service"
 telemetry_standard: "opentelemetry"
 maturity_level: "baseline" # baseline | intermediate | advanced
 
-# Optional SLO example (targets are owned by the service team):
+# Optional SLO example (list of event-based SLOs; see obs-sli; targets are owned by the service team):
 # slo:
-#   availability_target: 99.9
-#   p95_latency_target_ms: 300
-#   window: 30d
+#   - name: checkout-availability
+#     description: "A buyer completes checkout without a server error."
+#     sli_type: availability          # availability | latency | correctness
+#     event: "POST /checkout"
+#     success_predicate: "http.status_code < 500"
+#     target: 0.995                   # fraction of good events; replace with the agreed target
+#     window_days: 30
 # Optional critical route templates can be listed as:
 # critical_routes:
 #   - "GET /orders/{order_id}"

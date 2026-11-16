@@ -1,0 +1,10 @@
+version: "1.0"
+service: "ledger-api"
+maturity_level: "baseline"
+critical_routes:
+  - "POST /payments/{payment_id}"
+guardrails:
+  forbidden_metric_labels: ["tenant_code"]
+pillars:
+  traces:
+    sampling_ratio: 1.0

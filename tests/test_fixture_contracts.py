@@ -15,6 +15,9 @@ REQUIRED_CASES = {
     "async-context-propagation", "sync-export-request", "missing-pillars",
     "critical-routes-configured", "no-critical-routes", "prompt-injection",
     "no-slo-sli", "requests-without-users", "heuristic-regex", "indirect-wrapper",
+    "investigate-unconfirmed-signal", "sli-cause-based-request", "sli-duplicate-slo",
+    "sli-percentile-legacy-slo", "volume-dynamic-and-variable-labels",
+    "postmortem-unverified-impact", "playbook-debugging-redirect",
 }
 
 
@@ -117,3 +120,24 @@ def test_heuristic_and_indirect_wrapper_fixtures_prevent_false_certainty() -> No
     wrapper = read("indirect-wrapper/src/telemetry.py") + read("indirect-wrapper/src/routes.py")
     assert "start_as_current_span" in wrapper and "@traced" in wrapper
     assert "remains heuristic" in read("indirect-wrapper/EXPECTED.md").lower()
+
+
+def test_slo_fixtures_use_expected_schema_shapes() -> None:
+    duplicate = yaml.safe_load(read("sli-duplicate-slo/.observability/config.yaml"))
+    assert isinstance(duplicate["slo"], list)
+    assert duplicate["slo"][0]["event"] == "POST /checkout"
+    legacy = yaml.safe_load(read("sli-percentile-legacy-slo/.observability/config.yaml"))
+    assert isinstance(legacy["slo"], dict) and "p95_latency_target_ms" in legacy["slo"]
+
+
+def test_new_skill_fixtures_keep_evidence_and_boundaries() -> None:
+    rows = read("investigate-unconfirmed-signal/metric_samples.csv").splitlines()[1:]
+    values = [int(row.split(",")[2]) for row in rows]
+    assert max(values) - min(values) < 20
+    metrics = read("volume-dynamic-and-variable-labels/metrics.py")
+    assert '"tenant_code": tenant_code' in metrics and "cloud.region" in metrics
+    config = yaml.safe_load(read("volume-dynamic-and-variable-labels/.observability/config.yaml"))
+    assert "tenant_code" in config["guardrails"]["forbidden_metric_labels"]
+    assert "no metric, trace, or log excerpts" in read("postmortem-unverified-impact/incident.md").lower()
+    assert "[unverified — telemetry required]" in read("postmortem-unverified-impact/EXPECTED.md")
+    assert "redirects to `obs-investigate`" in read("playbook-debugging-redirect/EXPECTED.md")
