@@ -6,7 +6,10 @@ import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ("obs-init", "obs-guide", "obs-audit", "obs-impact", "obs-score")
+SKILLS = (
+    "obs-init", "obs-guide", "obs-audit", "obs-impact", "obs-score",
+    "obs-investigate", "obs-sli", "obs-volume", "obs-postmortem", "obs-playbook",
+)
 
 
 def read_skill(name: str) -> str:
@@ -470,6 +473,11 @@ def test_each_skill_has_its_character_and_opt_in_phrase() -> None:
         "obs-guide": "Sentinel Guard",
         "obs-audit": "Spectral Inquisitor",
         "obs-impact": "Troubadour",
+        "obs-investigate": "Tracker",
+        "obs-sli": "Oracle",
+        "obs-volume": "Alchemist",
+        "obs-postmortem": "Chronicler",
+        "obs-playbook": "Warden",
     }
 
     for name, character in characters.items():
@@ -478,3 +486,61 @@ def test_each_skill_has_its_character_and_opt_in_phrase() -> None:
         assert "fantasy naming" in content, name
         assert "fantasy-naming" in content, name
         assert "case-insensitive" in content, name
+
+
+def slo_example_from_template() -> list[dict[str, Any]]:
+    path = ROOT / "skills" / "obs-init" / "references" / "observability-config.yaml"
+    lines = path.read_text(encoding="utf-8").splitlines()
+    start = next(i for i, line in enumerate(lines) if line.startswith("# slo:"))
+    block = []
+    for line in lines[start:]:
+        if not line.startswith("#   ") and not line.startswith("# slo:"):
+            break
+        block.append(line[2:])
+    return yaml.safe_load("\n".join(block))["slo"]
+
+
+def slo_example_from_obs_sli() -> list[dict[str, Any]]:
+    match = re.search(r"```yaml\n(.*?)```", read_skill("obs-sli"), re.DOTALL)
+    assert match, "obs-sli must show its draft slo block"
+    return yaml.safe_load(match.group(1))["slo"]
+
+
+def test_slo_schema_is_consistent_between_template_and_obs_sli() -> None:
+    template = slo_example_from_template()
+    generated = slo_example_from_obs_sli()
+
+    assert isinstance(template, list) and isinstance(generated, list)
+    assert set(template[0]) == set(generated[0])
+    assert template[0]["window_days"] == generated[0]["window_days"] == 30
+
+
+def test_obs_audit_requires_event_based_slis_and_has_sli_category() -> None:
+    content = read_skill("obs-audit")
+    conventions = (ROOT / "docs" / "sdd-conventions.md").read_text(encoding="utf-8")
+
+    assert "proportion of requests completing within a latency threshold" in content
+    assert "percentile aggregate" in content and "legacy mapping" in content
+    assert "`sli`" in content and "`sli`" in conventions
+    assert "response latency at a percentile" not in content
+
+
+def test_obs_guide_defines_wide_event_as_span_with_attributes() -> None:
+    content = read_skill("obs-guide")
+
+    assert "wide event is the active span carrying many attributes" in content
+    assert "set_attribute" in content
+
+
+def test_new_skills_keep_their_boundaries() -> None:
+    checks = {
+        "obs-investigate": ("loop exit", "escalation point", "do not recommend changes to application source code"),
+        "obs-sli": ("symptom, not a cause", "do not write to `.observability/config.yaml`", "one sli definition per invocation"),
+        "obs-volume": ("forbidden-label floor", "tail sampling", "heuristic"),
+        "obs-postmortem": ("[unverified — telemetry required]", "confirmed", "likely", "unknown"),
+        "obs-playbook": ("redirect to `obs-investigate`", "abort criterion", "[instrumentation gap]"),
+    }
+    for name, phrases in checks.items():
+        content = read_skill(name).lower()
+        for phrase in phrases:
+            assert phrase.lower() in content, (name, phrase)
