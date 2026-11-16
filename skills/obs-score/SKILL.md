@@ -35,6 +35,16 @@ Use exactly the same set of critical routes as the denominator for traces, metri
 
 For each pillar, report `covered routes / detected critical routes` and calculate the percentage from those counts. If no critical routes can be established, report `unknown` for all percentages and state that no critical routes were detected. Do not invent a denominator. Mark regex-based route or instrumentation detection as heuristic.
 
+## Cardinality health
+
+After scoring coverage, inspect each detected metric's attribute and label set:
+
+- **Stable**: bounded, low-cardinality values (HTTP method, route template, status class, boolean flags). No action required.
+- **Variable**: values bounded in theory but wide in practice (service version, region, feature flag). Flag for monitoring.
+- **Dynamic**: values unbounded at runtime (user ID, order ID, raw URL path, request ID). Always flag; they cause cardinality explosions. Dynamic values in the forbidden floor or configured list are violations, not warnings.
+
+Report a cardinality risk count across all detected metrics. Label all conclusions **heuristic** when AST inspection is unavailable; static analysis cannot observe runtime cardinality.
+
 ## Output
 
 Use a compact ASCII tree, for example:
@@ -43,7 +53,8 @@ Use a compact ASCII tree, for example:
 Observability score — static source evidence
 ├─ Traces: 2/3 routes — 67%
 ├─ Metrics: 1/3 routes — 33%
-└─ Logs: 3/3 routes — 100%
+├─ Logs: 3/3 routes — 100%
+└─ Cardinality: 4 metrics detected, 1 with risk
 ```
 
 Show the configured maturity level only as declared in the config; do not infer or upgrade it from this score. Beneath the tree, list each detected route's template and `file:line`, citing `.observability/config.yaml:line` for config entries and the handler source line for code detection; label each method **config**, **AST**, or **heuristic**. This evidence listing does not count toward the two-action limit. Add at most two concise actions, ordered by customer impact. If the working directory lacks the config but exactly one child directory contains it, report that likely service root and stop; if several child directories contain it, list them and ask which one. If no config exists, report `obs-init` as the single prerequisite and stop.

@@ -39,6 +39,7 @@ Verify OpenTelemetry wrappers in source code. A YAML declaration alone is never 
 3. **Event context propagation:** For Kafka, RabbitMQ, SQS, and other asynchronous boundaries, inspect producer and consumer code for W3C context injection and extraction through headers, including `traceparent`. When `guardrails.event_driven_propagation` is `false`, report this check as disabled by contract instead of a violation. Do not infer propagation from the configured `w3c` value alone.
 4. **Pillar coverage:** Compare actual source evidence for spans, counters/histograms, and structured logs with trace, metric, and log requirements in the contract. Do not demand custom metrics when framework defaults satisfy the configured scope.
 5. **Data safety:** Always flag secrets, credentials, raw request bodies, or unnecessary personal data in telemetry attributes or log fields; privacy rules cannot be disabled by config.
+6. **SLI quality:** If `.observability/config.yaml` contains an `slo` block, verify that each declared SLI uses an event-based, user-facing signal—such as HTTP request success rate, response latency at a percentile, or availability of a named user action. Flag any SLI that measures an internal resource or queue metric (CPU utilization, memory, queue depth, replica count, internal retry error count) as cause-based rather than symptom-based; create a task to replace it with a user-observable equivalent. When no `slo` block is present, skip this check and do not create a task.
 
 ## Output and SDD tasks
 
